@@ -17,7 +17,7 @@ jobs:
       run: dotnet build ./SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release
     - name: Pack
       run: dotnet pack ./SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release --output ./artifacts
-    - uses: tanaka-takayoshi/nuget-publish-to-github-packages-actino@v2.1
+    - uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
         nupkgpath: '.artifacts/*.nupkg'
         repo-owner: 'sirrandoo'
