@@ -17,9 +17,7 @@ jobs:
       run: dotnet build SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release
     - name: Pack
       run: dotnet pack SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release --output artifacts
-    - uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+    - uses: dansiegel/publish-nuget@v1.01
       with:
-        nupkg-path: 'artifacts/*.nupkg'
-        repo-owner: 'sirrandoo'
-        gh-user: 'sirrandoo'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        apiKey: ${{ secrets.GITHUB_TOKEN }}
+        feedUrl: https://nuget.pkg.github.com/sirrandoo/index.json
