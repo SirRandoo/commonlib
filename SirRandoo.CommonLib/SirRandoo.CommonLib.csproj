@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>8</LangVersion>
+    <Title>SirRandoo.CommonLib</Title>
+    <Authors>SirRandoo</Authors>
+    <Description>A collection of code for use in RimWorld mods.</Description>
+    <Copyright>Copyright (c) 2022 SirRandoo</Copyright>
+    <RepositoryUrl>https://github.com/sirrandoo/commonlib</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.2.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3200" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>
