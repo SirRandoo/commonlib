@@ -13,11 +13,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        source-url: https://nuget.pkg.github.com/sirrandoo/index.json
     - name: Build
       run: dotnet build SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release
     - name: Pack
-      run: dotnet pack SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --configuration Release --output artifacts
-    - uses: dansiegel/publish-nuget@v1.01
-      with:
-        apiKey: ${{ secrets.GITHUB_TOKEN }}
-        feedUrl: https://nuget.pkg.github.com/sirrandoo/index.json
+      run: dotnet pack SirRandoo.CommonLib/SirRandoo.CommonLib.csproj --output nuget-packages --configuration Release
+    - name: Push
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --source https://nuget.pkg.github.com/sirrandoo/index.json
