@@ -30,7 +30,7 @@ namespace CommonLib.Entities
     {
         private static readonly SynchronizationContext Context = SynchronizationContext.Current;
 
-        private RimThreadedLogger(string name) : base(name)
+        public RimThreadedLogger(string name) : base(name)
         {
         }
 

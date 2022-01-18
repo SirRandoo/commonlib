@@ -35,7 +35,7 @@ namespace CommonLib.Entities
         private bool _debugChecked;
         private bool _debugEnabled;
 
-        private protected RimLogger(string name)
+        public RimLogger(string name)
         {
             _name = name;
         }
