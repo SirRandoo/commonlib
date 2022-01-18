@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using CommonLib.Interfaces;
@@ -76,6 +77,12 @@ namespace CommonLib.Entities
         {
             Log(FormatMessage("ERR", message, "#FF768CE"));
             Verse.Log.TryOpenLogWindow();
+        }
+
+        /// <inheritdoc/>
+        public virtual void Error(string message, [NotNull] Exception exception)
+        {
+            Error($"{message} :: {exception.GetType().Name}({exception.Message})\n\n{exception.ToStringSafe()}");
         }
 
         /// <inheritdoc/>

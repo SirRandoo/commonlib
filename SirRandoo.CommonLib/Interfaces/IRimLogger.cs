@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+
 namespace CommonLib.Interfaces
 {
     /// <summary>
@@ -70,10 +72,17 @@ namespace CommonLib.Interfaces
         void Warn(string message);
 
         /// <summary>
-        ///     Logs a ERROR level message to RimWorld's log window.
+        ///     Logs an ERROR level message to RimWorld's log window.
         /// </summary>
         /// <param name="message">The message to log</param>
         void Error(string message);
+
+        /// <summary>
+        ///     Logs an ERROR level message to RimWorld's log window.
+        /// </summary>
+        /// <param name="message">The message to log</param>
+        /// <param name="exception">The exception to log</param>
+        void Error(string message, Exception exception);
 
         /// <summary>
         ///     Logs a DEBUG level message to RimWorld's log window.
