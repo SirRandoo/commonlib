@@ -111,6 +111,7 @@ namespace CommonLib.Windows
 
         protected virtual void DrawSettings(Rect region)
         {
+            _mod.DoSettingsWindowContents(region);
         }
 
         protected virtual void GetTranslations()
