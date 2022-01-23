@@ -483,8 +483,11 @@ namespace CommonLib.Helpers
         /// <param name="anchor">The text anchor of the header's name</param>
         /// <param name="fontScale">The font scale of the header's name</param>
         /// <param name="vertical">Whether or not to draw the header vertically</param>
-        /// <param name="margin">
-        ///     The amount of space to contract from <see cref="region"/> before drawing <see cref="name"/>
+        /// <param name="marginX">
+        ///     The amount of space to contract from <see cref="region"/>'s horizontal axis before drawing <see cref="name"/>
+        /// </param>
+        /// <param name="marginY">
+        ///     The amount of space to contract from <see cref="region"/>'s vertical axis before drawing <see cref="name"/>
         /// </param>
         /// <returns>Whether or not the header was clicked</returns>
         public static bool TableHeader(
@@ -494,7 +497,8 @@ namespace CommonLib.Helpers
             TextAnchor anchor = TextAnchor.MiddleLeft,
             GameFont fontScale = GameFont.Small,
             bool vertical = false,
-            float margin = 5f
+            float marginX = 5f,
+            float marginY = 0f
         )
         {
             Text.Anchor = anchor;
@@ -517,7 +521,7 @@ namespace CommonLib.Helpers
                 GUI.color = Color.white;
             }
 
-            Rect textRegion = region.ContractedBy(margin);
+            Rect textRegion = region.ContractedBy(marginX, marginY);
             Widgets.Label(textRegion, name);
             bool pressed = Widgets.ButtonInvisible(region);
 
