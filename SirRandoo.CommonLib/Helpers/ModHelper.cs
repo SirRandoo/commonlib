@@ -26,14 +26,31 @@ using Verse;
 
 namespace CommonLib.Helpers
 {
+    /// <summary>
+    ///     A helper class for mod-related tasks.
+    /// </summary>
     public static class ModHelper
     {
+        /// <summary>
+        ///     Gets the display name of a given mod.
+        /// </summary>
+        /// <param name="pack">The <see cref="ModContentPack"/> of the mod</param>
+        /// <returns>A string that may represent the given mod's name</returns>
+        /// <remarks>
+        ///     The mod's name may not be accurate as <see cref="ModContentPack"/>
+        ///     or its contents may be null.
+        /// </remarks>
         [NotNull]
         public static string GetModName([CanBeNull] ModContentPack pack)
         {
             return pack?.IsCoreMod == true ? "RimWorld" : pack?.Name ?? "ERR";
         }
 
+        /// <summary>
+        ///     Opens a settings window for a given mod.
+        /// </summary>
+        /// <param name="mod">The mod to open the settings window for</param>
+        /// <typeparam name="T">The type <paramref name="mod"/> should be</typeparam>
         public static void OpenSettings<T>(this T mod) where T : Mod
         {
             ProxySettingsWindow.Open(new ProxySettingsWindow(mod));
