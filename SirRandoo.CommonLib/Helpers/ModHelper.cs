@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using CommonLib.Windows;
 using JetBrains.Annotations;
 using Verse;
 
@@ -31,6 +32,11 @@ namespace CommonLib.Helpers
         public static string GetModName([CanBeNull] ModContentPack pack)
         {
             return pack?.IsCoreMod == true ? "RimWorld" : pack?.Name ?? "ERR";
+        }
+
+        public static void OpenSettings<T>(this T mod) where T : Mod
+        {
+            ProxySettingsWindow.Open(new ProxySettingsWindow(mod));
         }
     }
 }
