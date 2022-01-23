@@ -14,7 +14,7 @@
         <FileVersion>1.0.0.0</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RootNamespace>CommonLib</RootNamespace>
-        <PackageVersion>1.2.0</PackageVersion>
+        <PackageVersion>1.2.1</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.0" ExcludeAssets="runtime" />
