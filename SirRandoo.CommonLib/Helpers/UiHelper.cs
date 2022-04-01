@@ -185,8 +185,10 @@ namespace CommonLib.Helpers
         /// <param name="bufferValid">Whether or not the <see cref="buffer"/> is a valid number</param>
         /// <param name="minimum">The minimum number <see cref="value"/> can be</param>
         /// <param name="maximum">The maximum value <see cref="value"/> can be</param>
-        public static void NumberField(Rect region, ref string buffer, ref int value, ref bool bufferValid, int minimum = 0, int maximum = int.MaxValue)
+        /// <returns>Whether a new, valid number was entered</returns>
+        public static bool NumberField(Rect region, ref string buffer, ref int value, ref bool bufferValid, int minimum = 0, int maximum = int.MaxValue)
         {
+            var @return = false;
             GUI.backgroundColor = bufferValid ? Color.white : Color.red;
 
             if (TextField(region, buffer, out string newBuffer))
@@ -197,6 +199,7 @@ namespace CommonLib.Helpers
                 {
                     value = Mathf.Clamp(result, minimum, maximum);
                     bufferValid = true;
+                    @return = true;
                 }
                 else
                 {
@@ -205,6 +208,8 @@ namespace CommonLib.Helpers
             }
 
             GUI.backgroundColor = Color.white;
+
+            return @return;
         }
 
         /// <summary>
@@ -216,8 +221,10 @@ namespace CommonLib.Helpers
         /// <param name="bufferValid">Whether or not the <see cref="buffer"/> is a valid number</param>
         /// <param name="minimum">The minimum number <see cref="value"/> can be</param>
         /// <param name="maximum">The maximum value <see cref="value"/> can be</param>
-        public static void NumberField(Rect region, ref string buffer, ref float value, ref bool bufferValid, float minimum = 0f, float maximum = float.MaxValue)
+        /// <returns>Whether a new, valid number was entered</returns>
+        public static bool NumberField(Rect region, ref string buffer, ref float value, ref bool bufferValid, float minimum = 0f, float maximum = float.MaxValue)
         {
+            var @return = false;
             GUI.backgroundColor = bufferValid ? Color.white : Color.red;
 
             if (TextField(region, buffer, out string newBuffer))
@@ -228,6 +235,7 @@ namespace CommonLib.Helpers
                 {
                     value = Mathf.Clamp(result, minimum, maximum);
                     bufferValid = true;
+                    @return = true;
                 }
                 else
                 {
@@ -236,6 +244,8 @@ namespace CommonLib.Helpers
             }
 
             GUI.backgroundColor = Color.white;
+
+            return @return;
         }
 
         /// <summary>
