@@ -12,8 +12,8 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.5.0</PackageVersion>
-        <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
+        <PackageVersion>1.6.0</PackageVersion>
+        <TargetFramework>net472</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.1" ExcludeAssets="runtime" />
