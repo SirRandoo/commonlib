@@ -21,13 +21,13 @@
 // SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
-using CommonLib.Enums;
 using JetBrains.Annotations;
+using SirRandoo.CommonLib.Enums;
 using Steamworks;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib.Helpers
+namespace SirRandoo.CommonLib.Helpers
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]

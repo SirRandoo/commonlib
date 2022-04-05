@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using CommonLib.Enums;
 using JetBrains.Annotations;
+using SirRandoo.CommonLib.Enums;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib.Helpers
+namespace SirRandoo.CommonLib.Helpers
 {
     public static class InputHelper
     {

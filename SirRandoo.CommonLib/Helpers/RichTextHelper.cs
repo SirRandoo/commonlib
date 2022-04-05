@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib.Helpers
+namespace SirRandoo.CommonLib.Helpers
 {
     /// <summary>
     ///     A class for removing XHTML tags from text.

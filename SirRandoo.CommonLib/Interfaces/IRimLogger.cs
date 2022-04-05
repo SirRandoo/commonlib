@@ -22,7 +22,7 @@
 
 using System;
 
-namespace CommonLib.Interfaces
+namespace SirRandoo.CommonLib.Interfaces
 {
     /// <summary>
     ///     An interface for outlining the a logger for RimWorld.

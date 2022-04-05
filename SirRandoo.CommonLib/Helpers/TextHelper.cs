@@ -24,7 +24,7 @@ using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace CommonLib.Helpers
+namespace SirRandoo.CommonLib.Helpers
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]

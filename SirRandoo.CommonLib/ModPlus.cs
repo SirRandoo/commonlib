@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using CommonLib.Windows;
+using SirRandoo.CommonLib.Windows;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib
+namespace SirRandoo.CommonLib
 {
     public abstract class ModPlus : Mod
     {

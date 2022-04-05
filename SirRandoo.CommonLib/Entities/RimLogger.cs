@@ -23,12 +23,12 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using CommonLib.Interfaces;
 using JetBrains.Annotations;
+using SirRandoo.CommonLib.Interfaces;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib.Entities
+namespace SirRandoo.CommonLib.Entities
 {
     public class RimLogger : IRimLogger
     {

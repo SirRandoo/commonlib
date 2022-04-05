@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using CommonLib.Windows;
 using JetBrains.Annotations;
+using SirRandoo.CommonLib.Windows;
 using Verse;
 
-namespace CommonLib.Helpers
+namespace SirRandoo.CommonLib.Helpers
 {
     /// <summary>
     ///     A helper class for mod-related tasks.

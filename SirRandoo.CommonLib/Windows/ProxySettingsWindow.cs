@@ -28,7 +28,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace CommonLib.Windows
+namespace SirRandoo.CommonLib.Windows
 {
     public class ProxySettingsWindow : Window
     {

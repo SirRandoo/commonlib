@@ -23,7 +23,7 @@
 using System.Threading;
 using Verse;
 
-namespace CommonLib.Entities
+namespace SirRandoo.CommonLib.Entities
 {
     [StaticConstructorOnStartup]
     public class RimThreadedLogger : RimLogger
