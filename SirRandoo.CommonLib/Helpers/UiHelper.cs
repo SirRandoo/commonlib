@@ -694,7 +694,7 @@ namespace SirRandoo.CommonLib.Helpers
             GUI.color = color;
             Text.Font = GameFont.Tiny;
             float width = listing.ColumnWidth * 0.7f;
-            float height = Text.CalcHeight(text, width);
+            float height = Text.CalcHeight(text, width + 20f);
             Rect lineRect = listing.GetRect(height);
             var labelRect = new Rect(lineRect.x + 10f, lineRect.y, lineRect.width - 10 - width, lineRect.height);
 
