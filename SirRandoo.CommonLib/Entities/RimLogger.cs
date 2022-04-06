@@ -95,7 +95,7 @@ namespace SirRandoo.CommonLib.Entities
         {
             if (!_debugChecked)
             {
-                _debugEnabled = Assembly.GetCallingAssembly().GetCustomAttribute<DebuggableAttribute>() != null;
+                _debugEnabled = Assembly.GetCallingAssembly().GetCustomAttribute<DebuggableAttribute>()?.DebuggingFlags == DebuggableAttribute.DebuggingModes.DisableOptimizations;
                 _debugChecked = true;
             }
 
