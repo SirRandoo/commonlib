@@ -130,7 +130,7 @@ namespace SirRandoo.CommonLib.Helpers
         /// <returns>Whether or not the button was clicked</returns>
         public static bool FieldButton(Rect parentRegion, Texture2D icon, [CanBeNull] string tooltip = null, int offset = 0, bool removeControl = true)
         {
-            Rect region = LayoutHelper.IconRect(parentRegion.x + parentRegion.width - parentRegion.height * (offset + 1), parentRegion.y, 16f, parentRegion.height);
+            Rect region = LayoutHelper.IconRect(parentRegion.x + parentRegion.width - parentRegion.height * (offset + 1), parentRegion.y, parentRegion.height, parentRegion.height);
 
             GUI.DrawTexture(region, icon);
             TooltipHandler.TipRegion(region, tooltip);
