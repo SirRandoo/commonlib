@@ -57,25 +57,30 @@ namespace SirRandoo.CommonLib.Entities
         /// <inheritdoc/>
         public virtual void Log(string message)
         {
-            Verse.Log.Message(FormatMessage(message));
+            LogInternal(FormatMessage(message));
+        }
+
+        protected virtual void LogInternal(string message)
+        {
+            Verse.Log.Message(message);
         }
 
         /// <inheritdoc/>
         public virtual void Info(string message)
         {
-            Log(FormatMessage("INFO", message));
+            LogInternal(FormatMessage("INFO", message));
         }
 
         /// <inheritdoc/>
         public virtual void Warn(string message)
         {
-            Log(FormatMessage("WARN", message, "#FF6B00"));
+            LogInternal(FormatMessage("WARN", message, "#FF6B00"));
         }
 
         /// <inheritdoc/>
         public virtual void Error(string message)
         {
-            Log(FormatMessage("ERR", message, "#FF768CE"));
+            LogInternal(FormatMessage("ERR", message, "#FF768CE"));
             Verse.Log.TryOpenLogWindow();
         }
 
@@ -96,7 +101,7 @@ namespace SirRandoo.CommonLib.Entities
 
             if (_debugEnabled)
             {
-                Log(FormatMessage("DEBUG", message, ColorUtility.ToHtmlStringRGB(ColorLibrary.LightPink)));
+                LogInternal(FormatMessage("DEBUG", message, ColorUtility.ToHtmlStringRGB(ColorLibrary.LightPink)));
             }
         }
     }
