@@ -72,6 +72,20 @@ namespace SirRandoo.CommonLib.Helpers
         /// <summary>
         ///     Draws an icon over an input field.
         /// </summary>
+        /// <param name="parentRegion">The region of the field the icon is being drawn over</param>
+        /// <param name="icon">A string to be used as the icon</param>
+        /// <param name="tooltip">An optional tooltip for the icon</param>
+        /// <param name="offset">An optional number indicated how many slots to offset the icon</param>
+        public static void FieldIcon(Rect parentRegion, string icon, [CanBeNull] string tooltip = null, int offset = 0)
+        {
+            Rect region = GetFieldIconRect(parentRegion, offset);
+            Label(region, icon, TextAnchor.MiddleCenter);
+            TooltipHandler.TipRegion(region, tooltip);
+        }
+
+        /// <summary>
+        ///     Draws an icon over an input field.
+        /// </summary>
         /// <param name="parentRegion">The region of the field the button is being drawn over</param>
         /// <param name="icon">A texture to be drawn as the icon</param>
         /// <param name="tooltip">An optional tooltip for the icon</param>
@@ -93,9 +107,20 @@ namespace SirRandoo.CommonLib.Helpers
         {
             bool clicked = Mouse.IsOver(region) && Input.GetMouseButtonDown(0);
 
-            if (clicked && removeControl)
+            if (!clicked || !removeControl)
             {
-                GUIUtility.keyboardControl = 0;
+                return clicked;
+            }
+
+            GUIUtility.keyboardControl = 0;
+
+            switch (Event.current.type)
+            {
+                case EventType.Used:
+                case EventType.MouseDown:
+                    Event.current.Use();
+
+                    break;
             }
 
             return clicked;
