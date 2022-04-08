@@ -130,15 +130,15 @@ namespace SirRandoo.CommonLib.Helpers
         ///     Draws a button over an input field.
         /// </summary>
         /// <param name="parentRegion">The region of the field the button is being drawn over</param>
-        /// <param name="icon">A character to be used as the icon for the button</param>
+        /// <param name="icon">A string to be used as the icon for the button</param>
         /// <param name="tooltip">An optional tooltip for the button</param>
         /// <param name="offset">An optional number indicated how many slots to offset the button</param>
         /// <param name="removeControl">Whether or not clicking the button will remove keyboard control from the input field</param>
         /// <returns>Whether or not the button was clicked</returns>
-        public static bool FieldButton(Rect parentRegion, char icon, [CanBeNull] string tooltip = null, int offset = 0, bool removeControl = true)
+        public static bool FieldButton(Rect parentRegion, string icon, [CanBeNull] string tooltip = null, int offset = 0, bool removeControl = true)
         {
             Rect region = GetFieldIconRect(parentRegion, offset);
-            Label(region, icon.ToString(), TextAnchor.MiddleCenter, GameFont.Medium);
+            Label(region, icon, TextAnchor.MiddleCenter, GameFont.Medium);
             TooltipHandler.TipRegion(region, tooltip);
 
             return HandleInputFieldButton(region, removeControl);
@@ -172,7 +172,7 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="removeControl">Whether or not clicking the button will remove keyboard control from the input field</param>
         /// <returns>Whether or not the button was clicked</returns>
         public static bool ClearButton(Rect parentRegion, [CanBeNull] string tooltip = null, int offset = 0, bool removeControl = false) =>
-            FieldButton(parentRegion, '×', tooltip, offset, removeControl);
+            FieldButton(parentRegion, "×", tooltip, offset, removeControl);
 
         /// <summary>
         ///     Draws a sort indicator
@@ -387,7 +387,7 @@ namespace SirRandoo.CommonLib.Helpers
         /// <remarks>
         ///     Commonly used to indicate a "submit" or "finish" type of action.
         /// </remarks>
-        public static bool DoneButton(Rect region) => FieldButton(region, '✔');
+        public static bool DoneButton(Rect region) => FieldButton(region, "✔");
 
         /// <summary>
         ///     Draws the specified texture in the color given.
