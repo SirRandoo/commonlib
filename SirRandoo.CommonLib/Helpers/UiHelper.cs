@@ -479,7 +479,7 @@ namespace SirRandoo.CommonLib.Helpers
         public static bool TextField(Rect region, string content, out string newContent)
         {
             string text = Widgets.TextField(region, content);
-            newContent = string.Equals(text, content) ? text : null;
+            newContent = string.Equals(text, content) ? null : text;
 
             return newContent != null;
         }
