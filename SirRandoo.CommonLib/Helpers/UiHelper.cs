@@ -105,22 +105,13 @@ namespace SirRandoo.CommonLib.Helpers
         /// <returns>Whether or not the button was clicked</returns>
         private static bool HandleInputFieldButton(Rect region, bool removeControl = true)
         {
-            bool clicked = Mouse.IsOver(region) && Input.GetMouseButtonDown(0);
+            bool clicked = Mouse.IsOver(region) && Event.current.type == EventType.Used && Input.GetMouseButtonDown(0);
 
-            if (!clicked || !removeControl)
+            if (clicked && removeControl)
             {
+                GUIUtility.keyboardControl = 0;
+
                 return clicked;
-            }
-
-            GUIUtility.keyboardControl = 0;
-
-            switch (Event.current.type)
-            {
-                case EventType.Used:
-                case EventType.MouseDown:
-                    Event.current.Use();
-
-                    break;
             }
 
             return clicked;
