@@ -138,7 +138,7 @@ namespace SirRandoo.CommonLib.Helpers
         public static bool FieldButton(Rect parentRegion, string icon, [CanBeNull] string tooltip = null, int offset = 0, bool removeControl = true)
         {
             Rect region = GetFieldIconRect(parentRegion, offset);
-            Label(region, icon, TextAnchor.MiddleCenter, GameFont.Medium);
+            Label(region, icon, TextAnchor.MiddleCenter, GameFont.Tiny);
             TooltipHandler.TipRegion(region, tooltip);
 
             return HandleInputFieldButton(region, removeControl);
