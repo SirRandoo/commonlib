@@ -108,14 +108,14 @@ namespace SirRandoo.CommonLib.Helpers
             Widgets.ButtonInvisible(region);
             bool clicked = Mouse.IsOver(region) && Event.current.type == EventType.Used && Input.GetMouseButtonDown(0);
 
-            if (clicked && removeControl)
+            if (!clicked || !removeControl)
             {
-                GUIUtility.keyboardControl = 0;
-
                 return clicked;
             }
 
-            return clicked;
+            GUIUtility.keyboardControl = 0;
+
+            return true;
         }
 
         /// <summary>
