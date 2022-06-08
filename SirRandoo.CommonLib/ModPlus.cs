@@ -32,11 +32,15 @@ namespace SirRandoo.CommonLib
         {
         }
 
+        public abstract ProxySettingsWindow SettingsWindow { get; }
+
+        /// <inheritdoc cref="Mod.SettingsCategory"/>
+        public override string SettingsCategory() => Content.Name;
+
+        /// <inheritdoc cref="Mod.DoSettingsWindowContents"/>
         public override void DoSettingsWindowContents(Rect inRect)
         {
             ProxySettingsWindow.Open(SettingsWindow);
         }
-
-        protected abstract ProxySettingsWindow SettingsWindow { get; }
     }
 }
