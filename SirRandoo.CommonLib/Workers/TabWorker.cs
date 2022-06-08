@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using SirRandoo.CommonLib.Enums;
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
@@ -64,7 +63,7 @@ namespace SirRandoo.CommonLib.Workers
         {
             AddTab(id, label, contentDrawer, null);
         }
-        
+
         /// <summary>
         ///     Adds a tab to the display.
         /// </summary>
@@ -98,7 +97,7 @@ namespace SirRandoo.CommonLib.Workers
         {
             AddTab(id, label, tooltip, contentDrawer, null);
         }
-        
+
         /// <summary>
         ///     Adds a tab to the display.
         /// </summary>
@@ -117,6 +116,77 @@ namespace SirRandoo.CommonLib.Workers
         public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, Func<bool> clickHandler)
         {
             Tabs.Add(new Tab { Id = id, Label = label, Tooltip = tooltip, ContentDrawer = contentDrawer, ClickHandler = clickHandler });
+        }
+
+        /// <summary>
+        ///     Adds a tab to the display.
+        /// </summary>
+        /// <param name="id">The unique id of the tab</param>
+        /// <param name="label">The human readable label of the tab</param>
+        /// <param name="tooltip">The human readable tooltip of the tab</param>
+        /// <param name="contentDrawer">
+        ///     A callable invoked when the tab is
+        ///     currently selected
+        /// </param>
+        /// <param name="clickHandler">
+        ///     A callable invoked when the tab is clicked
+        ///     by the user. If the callable returns <c>false</c>, the tab won't
+        ///     be displayed.
+        /// </param>
+        /// <param name="icon">
+        ///     A <see cref="Texture2D"/> that provides a quick indicator to
+        ///     users about the tab's contents.
+        /// </param>
+        public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, Func<bool> clickHandler, Texture2D icon)
+        {
+            Tabs.Add(
+                new Tab
+                {
+                    Id = id,
+                    Label = label,
+                    Tooltip = tooltip,
+                    ContentDrawer = contentDrawer,
+                    ClickHandler = clickHandler,
+                    Icon = icon,
+                    Layout = IconLayout.IconAndText
+                }
+            );
+        }
+
+        /// <summary>
+        ///     Adds a tab to the display.
+        /// </summary>
+        /// <param name="id">The unique id of the tab</param>
+        /// <param name="label">The human readable label of the tab</param>
+        /// <param name="tooltip">The human readable tooltip of the tab</param>
+        /// <param name="contentDrawer">
+        ///     A callable invoked when the tab is
+        ///     currently selected
+        /// </param>
+        /// <param name="clickHandler">
+        ///     A callable invoked when the tab is clicked
+        ///     by the user. If the callable returns <c>false</c>, the tab won't
+        ///     be displayed.
+        /// </param>
+        /// <param name="icon">
+        ///     A <see cref="Texture2D"/> that provides a quick indicator to
+        ///     users about the tab's contents.
+        /// </param>
+        /// <param name="layout">The <see cref="IconLayout"/> to use for the tab.</param>
+        public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, Func<bool> clickHandler, Texture2D icon, IconLayout layout)
+        {
+            Tabs.Add(
+                new Tab
+                {
+                    Id = id,
+                    Label = label,
+                    Tooltip = tooltip,
+                    ContentDrawer = contentDrawer,
+                    ClickHandler = clickHandler,
+                    Icon = icon,
+                    Layout = layout
+                }
+            );
         }
 
         /// <summary>
@@ -195,7 +265,14 @@ namespace SirRandoo.CommonLib.Workers
                 Tab tab = Tabs[index];
                 var tabRect = new Rect(0f, 0f, _maxWidth, _maxHeight);
 
-                UiHelper.Label(tabRect, tab.Label, TextAnchor.MiddleCenter);
+                if (tab.Icon != null)
+                {
+                    DrawTabContent(tabRect, tab);
+                }
+                else
+                {
+                    UiHelper.Label(tabRect, tab.Label, TextAnchor.MiddleCenter);
+                }
 
                 if (string.Equals(tab.Id, SelectedTab))
                 {
@@ -261,7 +338,15 @@ namespace SirRandoo.CommonLib.Workers
                 var tabRect = new Rect(index - tabsPerView, 0f, width, region.height);
 
                 DrawTabBackground(tabRect);
-                UiHelper.Label(tabRect, tab.Label, TextAnchor.MiddleCenter);
+                
+                if (tab.Icon == null)
+                {
+                    UiHelper.Label(tabRect, tab.Label, TextAnchor.MiddleCenter);
+                }
+                else
+                {
+                    DrawTabContent(tabRect, tab);
+                }
 
                 if (Widgets.ButtonInvisible(tabRect))
                 {
@@ -361,6 +446,11 @@ namespace SirRandoo.CommonLib.Workers
                 float width = Text.CalcSize(tab.Label).x;
                 float adjustedWidth = width + 10f;
 
+                if (tab.Icon != null)
+                {
+                    adjustedWidth += 20f;
+                }
+
                 if (adjustedWidth > _maxWidth)
                 {
                     _maxWidth = adjustedWidth;
@@ -376,6 +466,40 @@ namespace SirRandoo.CommonLib.Workers
             }
 
             Text.Font = cache;
+        }
+
+        private void DrawTabContent(Rect region, Tab tab)
+        {
+            switch (tab.Layout)
+            {
+                case IconLayout.IconAndText:
+                    DrawTabIconAndText(region, tab);
+
+                    return;
+                case IconLayout.Text:
+                    UiHelper.Label(region, tab.Label, TextAnchor.MiddleCenter);
+
+                    return;
+                case IconLayout.Icon:
+                    Vector2 center = region.center;
+                    Rect iconRect = LayoutHelper.IconRect(center.x - 8f, center.y - 8f, 16f, 16f);
+                    UiHelper.Icon(iconRect, tab.Icon, Color.white);
+
+                    return;
+                default:
+                    UiHelper.Label(region, tab.Label, TextAnchor.MiddleCenter);
+
+                    return;
+            }
+        }
+
+        private static void DrawTabIconAndText(Rect region, Tab tab)
+        {
+            Rect iconRect = LayoutHelper.IconRect(region.x + 2f, region.y + 2f, 16f, 16f);
+            var textRect = new Rect(iconRect.x + 2f, region.y, region.width - iconRect.width - 2f, region.height);
+
+            UiHelper.Icon(iconRect, tab.Icon, Color.white);
+            UiHelper.Label(textRect, tab.Label, TextAnchor.MiddleCenter);
         }
 
         /// <summary>
@@ -397,6 +521,16 @@ namespace SirRandoo.CommonLib.Workers
             ///     The human readable tooltip of the tab.
             /// </summary>
             public string Tooltip { get; set; }
+
+            /// <summary>
+            ///     The icon of the tab.
+            /// </summary>
+            public Texture2D Icon { get; set; }
+
+            /// <summary>
+            ///     The layout of the <see cref="Icon"/> and <see cref="Label"/>.
+            /// </summary>
+            public IconLayout Layout { get; set; }
 
             /// <summary>
             ///     A callable invoked when the user clicks the tab. If the callable
