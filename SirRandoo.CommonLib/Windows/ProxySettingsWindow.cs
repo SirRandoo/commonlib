@@ -159,6 +159,12 @@ namespace SirRandoo.CommonLib.Windows
             Find.WindowStack.Add(window);
         }
 
+        internal static void Open(Mod mod)
+        {
+            Find.WindowStack.TryRemove(HugsLibActive ? HugsLibSettingsWindow : typeof(Dialog_ModSettings));
+            Find.WindowStack.Add(!(mod is ModPlus plus) ? new ProxySettingsWindow(mod) : plus.SettingsWindow);
+        }
+
         internal static void Open(ProxySettingsWindow window)
         {
             Find.WindowStack.TryRemove(HugsLibActive ? HugsLibSettingsWindow : typeof(Dialog_ModSettings));
