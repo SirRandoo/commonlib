@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using JetBrains.Annotations;
 using SirRandoo.CommonLib.Windows;
 using Verse;
@@ -53,7 +54,16 @@ namespace SirRandoo.CommonLib.Helpers
         /// <typeparam name="T">The type <paramref name="mod"/> should be</typeparam>
         public static void OpenSettings<T>(this T mod) where T : Mod
         {
-            ProxySettingsWindow.Open(new ProxySettingsWindow(mod));
+            ProxySettingsWindow.Open(mod);
+        }
+
+        /// <summary>
+        ///     Opens a settings window for the given mod.
+        /// </summary>
+        /// <param name="mod">The mod type to open the settings window for</param>
+        public static void OpenSettings(this Type mod)
+        {
+            ProxySettingsWindow.Open(LoadedModManager.GetMod(mod));
         }
     }
 }
