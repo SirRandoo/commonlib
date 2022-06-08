@@ -12,7 +12,7 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.7.0</PackageVersion>
+        <PackageVersion>1.8.0</PackageVersion>
         <TargetFramework>net472</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
