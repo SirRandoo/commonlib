@@ -60,16 +60,45 @@ namespace SirRandoo.CommonLib.Workers
         ///     A callable invoked when the tab is
         ///     currently selected
         /// </param>
+        public void AddTab(string id, string label, Action<Rect> contentDrawer)
+        {
+            AddTab(id, label, contentDrawer, null);
+        }
+        
+        /// <summary>
+        ///     Adds a tab to the display.
+        /// </summary>
+        /// <param name="id">The unique id of the tab</param>
+        /// <param name="label">The human readable label of the tab</param>
+        /// <param name="contentDrawer">
+        ///     A callable invoked when the tab is
+        ///     currently selected
+        /// </param>
         /// <param name="clickHandler">
         ///     A callable invoked when the tab is clicked
         ///     by the user. If the callable returns <c>false</c>, the tab won't
         ///     be displayed.
         /// </param>
-        public void AddTab(string id, string label, Action<Rect> contentDrawer, [CanBeNull] Func<bool> clickHandler = null)
+        public void AddTab(string id, string label, Action<Rect> contentDrawer, Func<bool> clickHandler)
         {
             AddTab(id, label, null, contentDrawer, clickHandler);
         }
 
+        /// <summary>
+        ///     Adds a tab to the display.
+        /// </summary>
+        /// <param name="id">The unique id of the tab</param>
+        /// <param name="label">The human readable label of the tab</param>
+        /// <param name="tooltip">The human readable tooltip of the tab</param>
+        /// <param name="contentDrawer">
+        ///     A callable invoked when the tab is
+        ///     currently selected
+        /// </param>
+        public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer)
+        {
+            AddTab(id, label, tooltip, contentDrawer, null);
+        }
+        
         /// <summary>
         ///     Adds a tab to the display.
         /// </summary>
@@ -85,7 +114,7 @@ namespace SirRandoo.CommonLib.Workers
         ///     by the user. If the callable returns <c>false</c>, the tab won't
         ///     be displayed.
         /// </param>
-        public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, [CanBeNull] Func<bool> clickHandler = null)
+        public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, Func<bool> clickHandler)
         {
             Tabs.Add(new Tab { Id = id, Label = label, Tooltip = tooltip, ContentDrawer = contentDrawer, ClickHandler = clickHandler });
         }
