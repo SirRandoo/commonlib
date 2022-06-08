@@ -61,9 +61,17 @@ namespace SirRandoo.CommonLib.Helpers
         /// <summary>
         ///     Trys to get the <see cref="WorkshopItemHook"/> of the given mod.
         /// </summary>
-        /// <param name="metaData">The mod to get the <see cref="WorkshopItemHook"/> for</param>
-        /// <param name="hook">The <see cref="WorkshopItemHook"/> of the mod if it exists, or <c>null</c> if it doesn't</param>
-        /// <returns>Whether the mod has a <see cref="WorkshopItemHook"/></returns>
+        /// <param name="metaData">
+        ///     The mod to get the
+        ///     <see cref="WorkshopItemHook"/> for
+        /// </param>
+        /// <param name="hook">
+        ///     The <see cref="WorkshopItemHook"/> of the mod if
+        ///     it exists, or <c>null</c> if it doesn't
+        /// </param>
+        /// <returns>
+        ///     Whether the mod has a <see cref="WorkshopItemHook"/>
+        /// </returns>
         [ContractAnnotation("metaData:null => false,hook:null; metaData:notnull => false,hook:null; metaData:notnull => true,hook:notnull")]
         public static bool TryGetWorkshopHook(this ModMetaData metaData, out WorkshopItemHook hook)
         {
