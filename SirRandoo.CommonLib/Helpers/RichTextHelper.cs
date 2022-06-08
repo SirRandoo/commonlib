@@ -126,5 +126,40 @@ namespace SirRandoo.CommonLib.Helpers
 
             return tagContent;
         }
+
+        /// <summary>
+        ///     Surrounds the given text with the specified rich text tag.
+        /// </summary>
+        /// <param name="s">The text to surround</param>
+        /// <param name="tag">The rich text tag to surround the text with</param>
+        /// <returns>The tagged string</returns>
+        [NotNull]
+        public static string Tagged(this string s, string tag) => $"<{tag}>{s}</{tag}>";
+
+        /// <summary>
+        ///     Surrounds the given text with the specified rich text color tag.
+        /// </summary>
+        /// <param name="s">The text to surround</param>
+        /// <param name="hex">The specified color's hex code</param>
+        /// <returns>The color tagged text</returns>
+        [NotNull]
+        public static string ColorTagged(this string s, string hex)
+        {
+            if (!hex.StartsWith("#"))
+            {
+                hex = $"#{hex}";
+            }
+
+            return $@"<color=""{hex}"">{s}</color>";
+        }
+
+        /// <summary>
+        ///     Surrounds the given text with the specified rich text tag.
+        /// </summary>
+        /// <param name="s">The text to surround</param>
+        /// <param name="color">The specified color</param>
+        /// <returns>The color tagged text</returns>
+        [NotNull]
+        public static string ColorTagged(this string s, Color color) => ColorTagged(s, ColorUtility.ToHtmlStringRGB(color));
     }
 }
