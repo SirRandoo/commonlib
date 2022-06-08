@@ -38,9 +38,20 @@ namespace SirRandoo.CommonLib.Helpers
         /// </summary>
         /// <param name="region">The region to shift</param>
         /// <param name="direction">The direction to shift the region to</param>
+        /// <returns>The shifted region</returns>
+        public static Rect Shift(this Rect region, Direction8Way direction)
+        {
+            return Shift(region, direction, 5f);
+        }
+        
+        /// <summary>
+        ///     Shifts a <see cref="Rect"/> in the specified direction.
+        /// </summary>
+        /// <param name="region">The region to shift</param>
+        /// <param name="direction">The direction to shift the region to</param>
         /// <param name="padding">The amount of padding to add to the shifted region</param>
         /// <returns>The shifted region</returns>
-        public static Rect Shift(this Rect region, Direction8Way direction, float padding = 5f)
+        public static Rect Shift(this Rect region, Direction8Way direction, float padding)
         {
             switch (direction)
             {
@@ -86,10 +97,21 @@ namespace SirRandoo.CommonLib.Helpers
         ///     Splits a <see cref="Rect"/> in two.
         /// </summary>
         /// <param name="region">The rect to split</param>
+        /// <returns>A tuple containing the left and right sides of the current line rect</returns>
+        [NotNull]
+        public static Tuple<Rect, Rect> Split(this Rect region)
+        {
+            return Split(region, 0.8f);
+        }
+
+        /// <summary>
+        ///     Splits a <see cref="Rect"/> in two.
+        /// </summary>
+        /// <param name="region">The rect to split</param>
         /// <param name="percent">A percent indicating how big the left side of the split should be relative to the region's width</param>
         /// <returns>A tuple containing the left and right sides of the current line rect</returns>
         [NotNull]
-        public static Tuple<Rect, Rect> Split(this Rect region, float percent = 0.8f)
+        public static Tuple<Rect, Rect> Split(this Rect region, float percent)
         {
             var left = new Rect(region.x, region.y, Mathf.FloorToInt(region.width * percent - 2f), region.height);
 
@@ -100,10 +122,32 @@ namespace SirRandoo.CommonLib.Helpers
         ///     Splits a <see cref="Rect"/> in two.
         /// </summary>
         /// <param name="listing">The <see cref="Listing"/> object to use</param>
+        /// <returns>A tuple containing the left and right sides of the current line rect</returns>
+        [NotNull]
+        public static Tuple<Rect, Rect> Split([NotNull] this Listing listing) => listing.Split(0.8f);
+
+        /// <summary>
+        ///     Splits a <see cref="Rect"/> in two.
+        /// </summary>
+        /// <param name="listing">The <see cref="Listing"/> object to use</param>
         /// <param name="percent">A percent indicating how big the left side of the split should be relative to the region's width</param>
         /// <returns>A tuple containing the left and right sides of the current line rect</returns>
         [NotNull]
-        public static Tuple<Rect, Rect> Split([NotNull] this Listing listing, float percent = 0.8f) => listing.GetRect(Text.LineHeight).Split(percent);
+        public static Tuple<Rect, Rect> Split([NotNull] this Listing listing, float percent) => listing.GetRect(Text.LineHeight).Split(percent);
+
+        /// <summary>
+        ///     Splits the given region into two <see cref="Rect"/>s
+        /// </summary>
+        /// <param name="x">The X position of the region</param>
+        /// <param name="y">The Y position of the region</param>
+        /// <param name="width">The width of the region</param>
+        /// <param name="height">The height of the region</param>
+        /// <returns>A tuple containing the left and right sides of the current line rect</returns>
+        [NotNull]
+        public static Tuple<Rect, Rect> Split(float x, float y, float width, float height)
+        {
+            return Split(x, y, width, height, 0.8f);
+        }
 
         /// <summary>
         ///     Splits the given region into two <see cref="Rect"/>s
@@ -113,9 +157,9 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="width">The width of the region</param>
         /// <param name="height">The height of the region</param>
         /// <param name="percent">A percent indicating how big the left side of the split should be relative to the region's width</param>
-        /// <returns></returns>
+        /// <returns>A tuple containing the left and right sides of the current line rect</returns>
         [NotNull]
-        public static Tuple<Rect, Rect> Split(float x, float y, float width, float height, float percent = 0.8f)
+        public static Tuple<Rect, Rect> Split(float x, float y, float width, float height, float percent)
         {
             var left = new Rect(x, y, Mathf.FloorToInt(width * percent), height);
             var right = new Rect(x + left.width, y, width - left.width, height);
@@ -166,7 +210,7 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="height">The height of the given region</param>
         /// <param name="margin">The amount of margins to add to the final <see cref="Rect"/></param>
         /// <returns>A scaled, centered <see cref="Rect"/> for drawing icons</returns>
-        public static Rect IconRect(float x, float y, float width, float height, float margin = 2f)
+        public static Rect IconRect(float x, float y, float width, float height, float margin)
         {
             float shortest = Mathf.Min(width, height);
             float half = Mathf.FloorToInt(shortest / 2f);
@@ -179,6 +223,20 @@ namespace SirRandoo.CommonLib.Helpers
                 shortest - margin * 2f,
                 shortest - margin * 2f
             );
+        }
+
+        /// <summary>
+        ///     Shrinks and centers a deconstructed <see cref="Rect"/>
+        ///     for use in drawing icons.
+        /// </summary>
+        /// <param name="x">The X position of a region</param>
+        /// <param name="y">The Y position of a region</param>
+        /// <param name="width">The width of the given region</param>
+        /// <param name="height">The height of the given region</param>
+        /// <returns>A scaled, centered <see cref="Rect"/> for drawing icons</returns>
+        public static Rect IconRect(float x, float y, float width, float height)
+        {
+            return IconRect(x, y, width, height, 2f);
         }
     }
 }
