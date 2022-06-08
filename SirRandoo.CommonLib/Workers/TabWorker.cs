@@ -468,7 +468,7 @@ namespace SirRandoo.CommonLib.Workers
             Text.Font = cache;
         }
 
-        private void DrawTabContent(Rect region, Tab tab)
+        private static void DrawTabContent(Rect region, Tab tab)
         {
             switch (tab.Layout)
             {
