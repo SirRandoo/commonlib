@@ -27,7 +27,7 @@ using JetBrains.Annotations;
 
 namespace SirRandoo.CommonLib.Entities
 {
-/// <summary>
+    /// <summary>
     ///     A class for indexing a given enum for use in enumeration and case
     ///     insensitive keyed access.
     /// </summary>
@@ -36,6 +36,7 @@ namespace SirRandoo.CommonLib.Entities
     {
         private readonly List<T> _entities = new List<T>();
         private readonly Dictionary<string, T> _entitiesKeyed = new Dictionary<string, T>();
+        private readonly Dictionary<T, string> _entitiesValueKeyed = new Dictionary<T, string>();
 
         public EnumRegistrar()
         {
@@ -45,6 +46,7 @@ namespace SirRandoo.CommonLib.Entities
 
                 _entities.Add(inst);
                 _entitiesKeyed.Add(name.ToLowerInvariant(), inst);
+                _entitiesValueKeyed.Add(inst, name.ToLowerInvariant());
             }
         }
 
@@ -58,23 +60,26 @@ namespace SirRandoo.CommonLib.Entities
         public int Count => _entities.Count;
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.GetEnumerator"/>
-        IEnumerator<KeyValuePair<string, T>> IEnumerable<KeyValuePair<string, T>>.GetEnumerator() =>
-            _entitiesKeyed.GetEnumerator();
+        IEnumerator<KeyValuePair<string, T>> IEnumerable<KeyValuePair<string, T>>.GetEnumerator() => _entitiesKeyed.GetEnumerator();
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.ContainsKey"/>
         public bool ContainsKey([NotNull] string key) => _entitiesKeyed.ContainsKey(key.ToLowerInvariant());
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.TryGetValue"/>
-        public bool TryGetValue(string key, [CanBeNull] out T value) =>
-            _entitiesKeyed.TryGetValue(key.ToLowerInvariant(), out value);
+        public bool TryGetValue(string key, [NotNull] out T value) => _entitiesKeyed.TryGetValue(key.ToLowerInvariant(), out value);
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.this"/>
         public T this[[NotNull] string key] => _entitiesKeyed[key.ToLowerInvariant()];
+
+        public string this[[NotNull] T key] => _entitiesValueKeyed[key];
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.Keys"/>
         public IEnumerable<string> Keys => _entitiesKeyed.Keys;
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.Values"/>
         public IEnumerable<T> Values => _entitiesKeyed.Values;
+
+        [ContractAnnotation("=> true, key: notnull; => false, key: null")]
+        public bool TryGetKey([NotNull] T value, out string key) => _entitiesValueKeyed.TryGetValue(value, out key);
     }
 }
