@@ -26,12 +26,19 @@ using Verse;
 
 namespace SirRandoo.CommonLib
 {
+    /// <summary>
+    ///     An extended <see cref="Mod"/> class with specialized support for
+    ///     settings.
+    /// </summary>
     public abstract class ModPlus : Mod
     {
         protected ModPlus(ModContentPack content) : base(content)
         {
         }
 
+        /// <summary>
+        ///     Represents the window that will open when the mod's settings are
+        /// </summary>
         public abstract ProxySettingsWindow SettingsWindow { get; }
 
         /// <inheritdoc cref="Mod.SettingsCategory"/>
