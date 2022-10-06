@@ -12,12 +12,12 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.8.1</PackageVersion>
+        <PackageVersion>1.9.0</PackageVersion>
         <TargetFramework>net472</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.1" ExcludeAssets="runtime" />
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3326" ExcludeAssets="runtime" />
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3507-beta" ExcludeAssets="runtime" />
     </ItemGroup>
     <ItemGroup>
       <Compile Remove="Interfaces\IUiComponent.cs" />

@@ -34,7 +34,6 @@ namespace SirRandoo.CommonLib.Windows
     {
         private static readonly bool HugsLibActive = ModLister.GetActiveModWithIdentifier("UnlimitedHugs.HugsLib") != null;
         private static readonly Type HugsLibSettingsWindow = AccessTools.TypeByName("HugsLib.Settings.Dialog_VanillaModSettings");
-        private static readonly FieldInfo SelectedModField = AccessTools.Field(typeof(Dialog_ModSettings), "selMod");
         private readonly Mod _mod;
         private bool _hasSettings;
         private FloatMenu _noSettingsFloatMenu;
@@ -152,8 +151,7 @@ namespace SirRandoo.CommonLib.Windows
 
         private void DisplayMod(Mod handle)
         {
-            var window = new Dialog_ModSettings();
-            SelectedModField.SetValue(window, handle);
+            var window = new Dialog_ModSettings(handle);
 
             Find.WindowStack.TryRemove(this, false);
             Find.WindowStack.Add(window);
