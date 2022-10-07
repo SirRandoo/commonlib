@@ -116,6 +116,11 @@ namespace SirRandoo.CommonLib.Workers
         public void AddTab(string id, string label, string tooltip, Action<Rect> contentDrawer, Func<bool> clickHandler)
         {
             Tabs.Add(new Tab { Id = id, Label = label, Tooltip = tooltip, ContentDrawer = contentDrawer, ClickHandler = clickHandler });
+
+            if (string.IsNullOrEmpty(SelectedTab))
+            {
+                SelectedTab = id;
+            }
         }
 
         /// <summary>
