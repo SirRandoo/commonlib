@@ -54,12 +54,12 @@ namespace SirRandoo.CommonLib.Windows
 
         public override Vector2 InitialSize => new Vector2(900f, 700f);
 
-        public override void DoWindowContents(Rect region)
+        public override void DoWindowContents(Rect inRect)
         {
-            var headerRect = new Rect(0f, 0f, region.width, 35f);
-            var settingsRect = new Rect(0f, 40f, region.width, region.height - 40f - CloseButSize.y);
+            var headerRect = new Rect(0f, 0f, inRect.width, 35f);
+            var settingsRect = new Rect(0f, 40f, inRect.width, inRect.height - 40f - CloseButSize.y);
 
-            GUI.BeginGroup(region);
+            GUI.BeginGroup(inRect);
 
             GUI.BeginGroup(headerRect);
 
