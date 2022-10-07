@@ -22,9 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using HarmonyLib;
 using RimWorld;
+using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 using Verse;
 
@@ -36,9 +36,11 @@ namespace SirRandoo.CommonLib.Windows
         private static readonly Type HugsLibSettingsWindow = AccessTools.TypeByName("HugsLib.Settings.Dialog_VanillaModSettings");
         private readonly Mod _mod;
         private bool _hasSettings;
+        private string _lastException;
         private FloatMenu _noSettingsFloatMenu;
         private string _selectModText;
         private FloatMenu _settingsFloatMenu;
+        private int _totalErrors;
 
         public ProxySettingsWindow(Mod mod)
         {
@@ -110,7 +112,22 @@ namespace SirRandoo.CommonLib.Windows
 
         protected virtual void DrawSettings(Rect region)
         {
-            _mod.DoSettingsWindowContents(region);
+            if (_totalErrors >= 20)
+            {
+                UiHelper.Label(region, _lastException, Color.gray, TextAnchor.UpperLeft, GameFont.Small);
+
+                return;
+            }
+
+            try
+            {
+                _mod.DoSettingsWindowContents(region);
+            }
+            catch (Exception e)
+            {
+                _lastException = StackTraceUtility.ExtractStringFromException(e);
+                _totalErrors++;
+            }
         }
 
         protected virtual void GetTranslations()
@@ -151,6 +168,14 @@ namespace SirRandoo.CommonLib.Windows
 
         private void DisplayMod(Mod handle)
         {
+            if (handle is ModPlus mod)
+            {
+                Find.WindowStack.Add(mod.SettingsWindow);
+                Find.WindowStack.TryRemove(this, false);
+
+                return;
+            }
+
             var window = new Dialog_ModSettings(handle);
 
             Find.WindowStack.TryRemove(this, false);
