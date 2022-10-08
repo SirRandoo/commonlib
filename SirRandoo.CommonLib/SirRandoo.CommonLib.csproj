@@ -19,10 +19,4 @@
         <PackageReference Include="Lib.Harmony" Version="2.2.1" ExcludeAssets="runtime"/>
         <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3507-beta" ExcludeAssets="runtime"/>
     </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="Interfaces\IUiComponent.cs" />
-      <Compile Remove="Entities\ComponentMovedEventArgs.cs" />
-      <Compile Remove="Entities\ComponentValueChangedEventArgs.cs" />
-      <Compile Remove="Components\UiComponentBase.cs" />
-    </ItemGroup>
 </Project>
