@@ -50,6 +50,8 @@ namespace SirRandoo.CommonLib.Entities
             }
         }
 
+        public string this[[NotNull] T key] => _entitiesValueKeyed[key];
+
         /// <inheritdoc cref="IReadOnlyCollection{T}.GetEnumerator"/>
         public IEnumerator<T> GetEnumerator() => _entities.GetEnumerator();
 
@@ -70,8 +72,6 @@ namespace SirRandoo.CommonLib.Entities
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.this"/>
         public T this[[NotNull] string key] => _entitiesKeyed[key.ToLowerInvariant()];
-
-        public string this[[NotNull] T key] => _entitiesValueKeyed[key];
 
         /// <inheritdoc cref="IReadOnlyDictionary{TKey,TValue}.Keys"/>
         public IEnumerable<string> Keys => _entitiesKeyed.Keys;

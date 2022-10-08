@@ -60,11 +60,6 @@ namespace SirRandoo.CommonLib.Entities
             LogInternal(FormatMessage(message));
         }
 
-        protected virtual void LogInternal(string message)
-        {
-            Verse.Log.Message(message);
-        }
-
         /// <inheritdoc/>
         public virtual void Info(string message)
         {
@@ -95,7 +90,9 @@ namespace SirRandoo.CommonLib.Entities
         {
             if (!_debugChecked)
             {
-                _debugEnabled = Assembly.GetCallingAssembly().GetCustomAttribute<DebuggableAttribute>()?.DebuggingFlags == DebuggableAttribute.DebuggingModes.DisableOptimizations;
+                _debugEnabled = Assembly.GetCallingAssembly().GetCustomAttribute<DebuggableAttribute>()?.DebuggingFlags
+                    == DebuggableAttribute.DebuggingModes.DisableOptimizations;
+
                 _debugChecked = true;
             }
 
@@ -103,6 +100,11 @@ namespace SirRandoo.CommonLib.Entities
             {
                 LogInternal(FormatMessage("DEBUG", message, ColorUtility.ToHtmlStringRGB(ColorLibrary.LightPink)));
             }
+        }
+
+        protected virtual void LogInternal(string message)
+        {
+            Verse.Log.Message(message);
         }
     }
 }

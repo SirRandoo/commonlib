@@ -34,9 +34,9 @@ namespace SirRandoo.CommonLib.Workers
     /// <typeparam name="T">The type of the item being drawn</typeparam>
     public class ListWorker<T>
     {
-        private Vector2 _scrollPos = Vector2.zero;
         private readonly Action<T> _itemDrawer;
-        
+        private Vector2 _scrollPos = Vector2.zero;
+
         public ListWorker(Action<T> itemDrawer)
         {
             _itemDrawer = itemDrawer;
@@ -57,22 +57,22 @@ namespace SirRandoo.CommonLib.Workers
 
             GUI.BeginGroup(region);
             _scrollPos = GUI.BeginScrollView(region.AtZero(), _scrollPos, view);
-            
+
             foreach (T item in items)
             {
                 var lineRegion = new Rect(0f, index * lineHeight, view.width, lineHeight);
-                
+
                 if (alternate)
                 {
                     Widgets.DrawHighlight(lineRegion);
                 }
-                
+
                 _itemDrawer(item);
 
                 alternate = !alternate;
                 index++;
             }
-            
+
             GUI.EndGroup();
             GUI.EndScrollView();
         }

@@ -34,7 +34,7 @@ namespace SirRandoo.CommonLib.Entities
         {
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override void Log(string message)
         {
             if (UnityData.IsInMainThread)
@@ -47,7 +47,7 @@ namespace SirRandoo.CommonLib.Entities
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override void Error(string message)
         {
             if (UnityData.IsInMainThread)
