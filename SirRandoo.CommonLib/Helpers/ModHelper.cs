@@ -38,14 +38,12 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="pack">The <see cref="ModContentPack"/> of the mod</param>
         /// <returns>A string that may represent the given mod's name</returns>
         /// <remarks>
-        ///     The mod's name may not be accurate as <see cref="ModContentPack"/>
+        ///     The mod's name may not be accurate as
+        ///     <see cref="ModContentPack"/>
         ///     or its contents may be null.
         /// </remarks>
         [NotNull]
-        public static string GetModName([CanBeNull] ModContentPack pack)
-        {
-            return pack?.IsCoreMod == true ? "RimWorld" : pack?.Name ?? "ERR";
-        }
+        public static string GetModName([CanBeNull] ModContentPack pack) => pack?.IsCoreMod == true ? "RimWorld" : pack?.Name ?? "ERR";
 
         /// <summary>
         ///     Opens a settings window for a given mod.

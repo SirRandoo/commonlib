@@ -41,8 +41,14 @@ namespace SirRandoo.CommonLib.Helpers
         ///     An internal method for creating a <see cref="Rect"/> suitable for
         ///     drawing "field icons" in.
         /// </summary>
-        /// <param name="parentRegion">The region of the field the icon is being drawn over</param>
-        /// <param name="offset">An optional number indicating how many slots to offset the icon</param>
+        /// <param name="parentRegion">
+        ///     The region of the field the icon is being
+        ///     drawn over
+        /// </param>
+        /// <param name="offset">
+        ///     An optional number indicating how many slots to
+        ///     offset the icon
+        /// </param>
         /// <returns>The <see cref="Rect"/> to draw the field icon in</returns>
         private static Rect GetFieldIconRect(Rect parentRegion, int offset = 0) => LayoutHelper.IconRect(
             parentRegion.x + parentRegion.width - parentRegion.height * (offset + 1),
@@ -55,10 +61,16 @@ namespace SirRandoo.CommonLib.Helpers
         /// <summary>
         ///     Draws an icon over an input field.
         /// </summary>
-        /// <param name="parentRegion">The region of the field the icon is being drawn over</param>
+        /// <param name="parentRegion">
+        ///     The region of the field the icon is being
+        ///     drawn over
+        /// </param>
         /// <param name="icon">A character to be used as the icon</param>
         /// <param name="tooltip">An optional tooltip for the icon</param>
-        /// <param name="offset">An optional number indicated how many slots to offset the icon</param>
+        /// <param name="offset">
+        ///     An optional number indicated how many slots to
+        ///     offset the icon
+        /// </param>
         public static void FieldIcon(Rect parentRegion, char icon, [CanBeNull] string tooltip = null, int offset = 0)
         {
             Rect region = GetFieldIconRect(parentRegion, offset);
@@ -69,10 +81,16 @@ namespace SirRandoo.CommonLib.Helpers
         /// <summary>
         ///     Draws an icon over an input field.
         /// </summary>
-        /// <param name="parentRegion">The region of the field the icon is being drawn over</param>
+        /// <param name="parentRegion">
+        ///     The region of the field the icon is being
+        ///     drawn over
+        /// </param>
         /// <param name="icon">A string to be used as the icon</param>
         /// <param name="tooltip">An optional tooltip for the icon</param>
-        /// <param name="offset">An optional number indicated how many slots to offset the icon</param>
+        /// <param name="offset">
+        ///     An optional number indicated how many slots to
+        ///     offset the icon
+        /// </param>
         public static void FieldIcon(Rect parentRegion, string icon, [CanBeNull] string tooltip = null, int offset = 0)
         {
             Rect region = GetFieldIconRect(parentRegion, offset);
@@ -83,10 +101,16 @@ namespace SirRandoo.CommonLib.Helpers
         /// <summary>
         ///     Draws an icon over an input field.
         /// </summary>
-        /// <param name="parentRegion">The region of the field the button is being drawn over</param>
+        /// <param name="parentRegion">
+        ///     The region of the field the button is
+        ///     being drawn over
+        /// </param>
         /// <param name="icon">A texture to be drawn as the icon</param>
         /// <param name="tooltip">An optional tooltip for the icon</param>
-        /// <param name="offset">An optional number indicated how many slots to offset the icon</param>
+        /// <param name="offset">
+        ///     An optional number indicated how many slots to
+        ///     offset the icon
+        /// </param>
         public static void FieldIcon(Rect parentRegion, Texture2D icon, [CanBeNull] string tooltip = null, int offset = 0)
         {
             Rect region = GetFieldIconRect(parentRegion, offset);
@@ -128,8 +152,10 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="icon">The texture to draw</param>
         /// <param name="color">The color to draw the texture</param>
         /// <remarks>
-        ///     This method doesn't recolor the texture given to the color specified;
-        ///     it changes the value of <see cref="GUI.color"/> to the color specified
+        ///     This method doesn't recolor the texture given to the color
+        ///     specified;
+        ///     it changes the value of <see cref="GUI.color"/> to the color
+        ///     specified
         ///     and lets Unity handle the recoloring.
         /// </remarks>
         public static void Icon(Rect region, Texture2D icon, Color? color)
@@ -147,8 +173,14 @@ namespace SirRandoo.CommonLib.Helpers
         ///     Draws a background suitable for a tab.
         /// </summary>
         /// <param name="region">The region to draw the background in</param>
-        /// <param name="vertical">Whether or not to draw the background vertically</param>
-        /// <param name="active">Whether or not the associated tab is the active tab</param>
+        /// <param name="vertical">
+        ///     Whether or not to draw the background
+        ///     vertically
+        /// </param>
+        /// <param name="active">
+        ///     Whether or not the associated tab is the active
+        ///     tab
+        /// </param>
         public static void DrawTabBackground(Rect region, bool vertical = false, bool active = false)
         {
             if (vertical)
@@ -182,10 +214,12 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="fontScale">The font scale of the header's name</param>
         /// <param name="vertical">Whether or not to draw the header vertically</param>
         /// <param name="marginX">
-        ///     The amount of space to contract from <see cref="region"/>'s horizontal axis before drawing <see cref="name"/>
+        ///     The amount of space to contract from <see cref="region"/>'s
+        ///     horizontal axis before drawing <see cref="name"/>
         /// </param>
         /// <param name="marginY">
-        ///     The amount of space to contract from <see cref="region"/>'s vertical axis before drawing <see cref="name"/>
+        ///     The amount of space to contract from <see cref="region"/>'s
+        ///     vertical axis before drawing <see cref="name"/>
         /// </param>
         /// <returns>Whether or not the header was clicked</returns>
         public static bool TableHeader(
@@ -251,7 +285,8 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="order">The sort order of the header's data</param>
         /// <param name="vertical">Whether or not to draw the header vertically</param>
         /// <param name="margin">
-        ///     The amount of space to contract from <see cref="region"/> before drawing <see cref="icon"/>
+        ///     The amount of space to contract from <see cref="region"/> before
+        ///     drawing <see cref="icon"/>
         /// </param>
         /// <returns>Whether or not the header was clicked</returns>
         public static bool TableHeader(Rect region, Texture2D icon, SortOrder order = SortOrder.None, bool vertical = false, float margin = 5f)
@@ -365,7 +400,10 @@ namespace SirRandoo.CommonLib.Helpers
         /// </summary>
         /// <param name="listing">The <see cref="Listing"/> object use for layout</param>
         /// <param name="name">The name of the group header</param>
-        /// <param name="gapPrefix">Whether or not to prepend a gap before the group header</param>
+        /// <param name="gapPrefix">
+        ///     Whether or not to prepend a gap before the
+        ///     group header
+        /// </param>
         public static void GroupHeader([NotNull] this Listing listing, string name, bool gapPrefix = true)
         {
             if (gapPrefix)
@@ -383,7 +421,10 @@ namespace SirRandoo.CommonLib.Helpers
         /// <param name="listing">The <see cref="Listing"/> object use for layout</param>
         /// <param name="modName">The human readable name of the mod</param>
         /// <param name="modId">The workshop id of the mod</param>
-        /// <param name="gapPrefix">Whether or not to prepend a gap before the group header</param>
+        /// <param name="gapPrefix">
+        ///     Whether or not to prepend a gap before the
+        ///     group header
+        /// </param>
         public static void ModGroupHeader([NotNull] this Listing listing, string modName, ulong modId, bool gapPrefix = true)
         {
             if (gapPrefix)
@@ -433,7 +474,8 @@ namespace SirRandoo.CommonLib.Helpers
         }
 
         /// <summary>
-        ///     Draws a labeled checkbox with support for RimWorld's "click-and-drag"
+        ///     Draws a labeled checkbox with support for RimWorld's
+        ///     "click-and-drag"
         ///     feature for checkboxes.
         /// </summary>
         /// <param name="region">The region to draw the checkbox in</param>
@@ -458,12 +500,16 @@ namespace SirRandoo.CommonLib.Helpers
         }
 
         /// <summary>
-        ///     Draws the specified <see cref="ThingDef"/> in form suitable for users.
+        ///     Draws the specified <see cref="ThingDef"/> in form suitable for
+        ///     users.
         /// </summary>
         /// <param name="region">The region to draw the thing at</param>
         /// <param name="def">The <see cref="ThingDef"/> to draw</param>
         /// <param name="labelOverride">An override for the thing's label</param>
-        /// <param name="infoCard">Whether or not to show the info card for the thing when it's clicked</param>
+        /// <param name="infoCard">
+        ///     Whether or not to show the info card for the
+        ///     thing when it's clicked
+        /// </param>
         public static void DrawThing(Rect region, ThingDef def, [CanBeNull] string labelOverride = null, bool infoCard = true)
         {
             var iconRect = new Rect(region.x + 2f, region.y + 2f, region.height - 4f, region.height - 4f);

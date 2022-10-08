@@ -31,12 +31,12 @@ namespace SirRandoo.CommonLib.Enums
         ///     Only the icon will be shown on the display.
         /// </summary>
         Icon,
-        
+
         /// <summary>
         ///     Only the text will be shown on the display.
         /// </summary>
         Text,
-        
+
         /// <summary>
         ///     Both icon and text will be shown on the display.
         /// </summary>
