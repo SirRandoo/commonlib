@@ -243,14 +243,22 @@ namespace SirRandoo.CommonLib.Workers
 
             DrawTabBackground(contentRect);
 
-            contentRect = contentRect.ContractedBy(4f);
-            GUI.BeginGroup(contentRect);
+            Rect innerContentRect = contentRect.ContractedBy(4f);
+            GUI.BeginGroup(innerContentRect);
 
             Tab tab = Tabs.Find(t => string.Equals(t.Id, SelectedTab));
 
-            tab.ContentDrawer?.Invoke(contentRect.AtZero());
+            if (tab.Equals(default))
+            {
+                GUI.EndGroup();
 
+                return;
+            }
+
+            tab.ContentDrawer?.Invoke(innerContentRect.AtZero());
             GUI.EndGroup();
+
+            DrawTabForeground(contentRect);
         }
 
         private Rect DrawVertical(Rect region)
@@ -326,24 +334,26 @@ namespace SirRandoo.CommonLib.Workers
                 DrawHorizontalNavigation(totalPages, leftRect, rightRect);
 
                 offset = leftRect.width;
-                usableWidth = region.width - leftRect.width - rightRect.width;
+                usableWidth -= leftRect.width + rightRect.width;
             }
 
             var tabsRect = new Rect(offset, region.y, usableWidth, region.height);
 
             GUI.BeginGroup(tabsRect);
 
-            int index = _currentPage - 1 * tabsPerView;
+            int pageIndex = (_currentPage - 1) * tabsPerView;
+            int viewCount = Mathf.Min(Tabs.Count, tabsPerView);
             float width = Mathf.FloorToInt(usableWidth / tabsPerView);
 
-            for (int i = index; i < index + tabsPerView - 1; i++)
+            for (var i = 0; i < viewCount; i++)
             {
-                Tab tab = Tabs[index];
+                int tabIndex = pageIndex + i;
+                Tab tab = Tabs[tabIndex];
 
-                var tabRect = new Rect(index - tabsPerView, 0f, width, region.height);
+                var tabRect = new Rect(tabsRect.x + tabIndex * width, tabsRect.y, width, region.height);
 
                 DrawTabBackground(tabRect);
-                
+
                 if (tab.Icon == null)
                 {
                     UiHelper.Label(tabRect, tab.Label, TextAnchor.MiddleCenter);
@@ -355,7 +365,7 @@ namespace SirRandoo.CommonLib.Workers
 
                 if (Widgets.ButtonInvisible(tabRect))
                 {
-                    SelectedTab = tab.Id;
+                    ProcessTabClick(tab);
                 }
 
                 if (string.Equals(SelectedTab, tab.Id))
@@ -365,6 +375,16 @@ namespace SirRandoo.CommonLib.Workers
             }
 
             GUI.EndGroup();
+        }
+
+        private void ProcessTabClick(Tab tab)
+        {
+            if (tab.ClickHandler != null && !tab.ClickHandler())
+            {
+                return;
+            }
+
+            SelectedTab = tab.Id;
         }
 
         private void DrawHorizontalNavigation(int pages, Rect leftRegion, Rect rightRegion)
@@ -421,6 +441,7 @@ namespace SirRandoo.CommonLib.Workers
 
                     return;
                 case TabLayout.Horizontal:
+                    Widgets.DrawLightHighlight(region);
                     Widgets.DrawLightHighlight(region);
 
                     return;
