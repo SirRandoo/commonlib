@@ -37,6 +37,18 @@ namespace SirRandoo.CommonLib.Workers
             Widgets.DrawAtlas(region, Widgets.ButtonBGAtlas);
         }
 
+        /// <inheritdoc />
+        protected override void DrawContentForeground(Rect region)
+        {
+            // Unused
+        }
+
+        /// <inheritdoc />
+        protected override void DrawContentBackground(Rect region)
+        {
+            // Unused
+        }
+
         /// <inheritdoc/>
         protected override void DrawTabHighlight(Rect region)
         {

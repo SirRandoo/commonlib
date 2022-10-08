@@ -35,9 +35,9 @@ namespace SirRandoo.CommonLib.Workers
     public class TabWorker
     {
         private protected readonly List<Tab> Tabs = new List<Tab>();
-        private int _currentPage = 1;
+        private protected int CurrentPage = 1;
         private float _maxHeight;
-        private float _maxWidth;
+        private protected float MaxWidth;
         private Vector2 _scrollPos = Vector2.zero;
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace SirRandoo.CommonLib.Workers
         /// <param name="region">The region to draw the tabbed content in</param>
         public void Draw(Rect region)
         {
-            if (_maxWidth <= 0)
+            if (MaxWidth <= 0)
             {
                 RecacheWidth();
             }
@@ -241,7 +241,7 @@ namespace SirRandoo.CommonLib.Workers
                     break;
             }
 
-            DrawTabBackground(contentRect);
+            DrawContentBackground(contentRect);
 
             Rect innerContentRect = contentRect.ContractedBy(4f);
             GUI.BeginGroup(innerContentRect);
@@ -258,25 +258,25 @@ namespace SirRandoo.CommonLib.Workers
             tab.ContentDrawer?.Invoke(innerContentRect.AtZero());
             GUI.EndGroup();
 
-            DrawTabForeground(contentRect);
+            DrawContentForeground(contentRect);
         }
 
         private Rect DrawVertical(Rect region)
         {
-            var listRect = new Rect(region.x, region.y, _maxWidth + 16f, _maxHeight);
+            var listRect = new Rect(region.x, region.y, MaxWidth + 16f, _maxHeight);
 
             Widgets.DrawMenuSection(listRect);
 
             GUI.BeginGroup(listRect);
 
-            var listView = new Rect(0f, 0f, _maxWidth, _maxHeight * Tabs.Count);
+            var listView = new Rect(0f, 0f, MaxWidth, _maxHeight * Tabs.Count);
 
             _scrollPos = GUI.BeginScrollView(listRect, _scrollPos, listView);
 
             for (var index = 0; index < Tabs.Count; index++)
             {
                 Tab tab = Tabs[index];
-                var tabRect = new Rect(0f, 0f, _maxWidth, _maxHeight);
+                var tabRect = new Rect(0f, 0f, MaxWidth, _maxHeight);
 
                 if (tab.Icon != null)
                 {
@@ -318,9 +318,9 @@ namespace SirRandoo.CommonLib.Workers
             return barRect;
         }
 
-        private void DrawTabsHorizontally(Rect region)
+        protected virtual void DrawTabsHorizontally(Rect region)
         {
-            int tabsPerView = Mathf.FloorToInt(Mathf.CeilToInt(region.width - region.height * 2f) / _maxWidth);
+            int tabsPerView = Mathf.FloorToInt(Mathf.CeilToInt(region.width - region.height * 2f) / MaxWidth);
             int totalPages = Mathf.CeilToInt(Tabs.Count / (float)tabsPerView);
 
             var offset = 0f;
@@ -341,7 +341,7 @@ namespace SirRandoo.CommonLib.Workers
 
             GUI.BeginGroup(tabsRect);
 
-            int pageIndex = (_currentPage - 1) * tabsPerView;
+            int pageIndex = (CurrentPage - 1) * tabsPerView;
             int viewCount = Mathf.Min(Tabs.Count, tabsPerView);
             float width = Mathf.FloorToInt(usableWidth / tabsPerView);
 
@@ -363,6 +363,8 @@ namespace SirRandoo.CommonLib.Workers
                     DrawTabContent(tabRect, tab);
                 }
 
+                DrawTabForeground(tabRect);
+
                 if (Widgets.ButtonInvisible(tabRect))
                 {
                     ProcessTabClick(tab);
@@ -370,14 +372,14 @@ namespace SirRandoo.CommonLib.Workers
 
                 if (string.Equals(SelectedTab, tab.Id))
                 {
-                    DrawTabForeground(tabRect);
+                    DrawTabHighlight(tabRect);
                 }
             }
 
             GUI.EndGroup();
         }
 
-        private void ProcessTabClick(Tab tab)
+        protected void ProcessTabClick(Tab tab)
         {
             if (tab.ClickHandler != null && !tab.ClickHandler())
             {
@@ -387,7 +389,7 @@ namespace SirRandoo.CommonLib.Workers
             SelectedTab = tab.Id;
         }
 
-        private void DrawHorizontalNavigation(int pages, Rect leftRegion, Rect rightRegion)
+        private protected void DrawHorizontalNavigation(int pages, Rect leftRegion, Rect rightRegion)
         {
             DrawTabBackground(leftRegion);
             DrawTabBackground(rightRegion);
@@ -398,13 +400,13 @@ namespace SirRandoo.CommonLib.Workers
             if (Widgets.ButtonInvisible(leftRegion))
             {
                 DrawTabForeground(leftRegion);
-                _currentPage = Mathf.Clamp(_currentPage, 1, pages);
+                CurrentPage = Mathf.Clamp(CurrentPage, 1, pages);
             }
 
             if (Widgets.ButtonInvisible(rightRegion))
             {
                 DrawTabForeground(rightRegion);
-                _currentPage = Mathf.Clamp(_currentPage, 1, pages);
+                CurrentPage = Mathf.Clamp(CurrentPage, 1, pages);
             }
         }
 
@@ -422,10 +424,19 @@ namespace SirRandoo.CommonLib.Workers
                     return;
                 case TabLayout.Horizontal:
                     Widgets.DrawLightHighlight(region);
-                    Widgets.DrawLightHighlight(region);
 
                     return;
             }
+        }
+
+        protected virtual void DrawContentForeground(Rect region)
+        {
+            Widgets.DrawLightHighlight(region);
+        }
+
+        protected virtual void DrawContentBackground(Rect region)
+        {
+            Widgets.DrawLightHighlight(region);
         }
 
         /// <summary>
@@ -441,7 +452,6 @@ namespace SirRandoo.CommonLib.Workers
 
                     return;
                 case TabLayout.Horizontal:
-                    Widgets.DrawLightHighlight(region);
                     Widgets.DrawLightHighlight(region);
 
                     return;
@@ -477,9 +487,9 @@ namespace SirRandoo.CommonLib.Workers
                     adjustedWidth += 20f;
                 }
 
-                if (adjustedWidth > _maxWidth)
+                if (adjustedWidth > MaxWidth)
                 {
-                    _maxWidth = adjustedWidth;
+                    MaxWidth = adjustedWidth;
                 }
 
                 float height = Text.CalcHeight(tab.Label, width);
@@ -494,7 +504,7 @@ namespace SirRandoo.CommonLib.Workers
             Text.Font = cache;
         }
 
-        private static void DrawTabContent(Rect region, Tab tab)
+        private protected static void DrawTabContent(Rect region, Tab tab)
         {
             switch (tab.Layout)
             {

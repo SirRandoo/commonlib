@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using UnityEngine;
 using Verse;
 
@@ -31,42 +32,62 @@ namespace SirRandoo.CommonLib.Workers
     /// </summary>
     public class MaterializedTabWorker : TabWorker
     {
-        private Vector2? _lastPosition;
-        private float _progress;
+        private float _foregroundProgress;
+        private float _highlightProgress;
+        private string _lastTab;
 
         /// <summary>
         ///     The color of the accent line for the tab.
         /// </summary>
         public Color AccentColor { get; set; } = Color.cyan;
 
+        private void ResetProgresses()
+        {
+            _highlightProgress = 0f;
+            _foregroundProgress = 0f;
+            _lastTab = SelectedTab;
+        }
+
         /// <inheritdoc/>
+        protected override void DrawContentForeground(Rect region)
+        {
+            // Unused
+        }
+
+        /// <inheritdoc/>
+        protected override void DrawContentBackground(Rect region)
+        {
+            // Unused
+        }
+
+        /// <inheritdoc />
         protected override void DrawTabForeground(Rect region)
         {
-            Color cache = GUI.color;
-
-            GUI.color = AccentColor;
-            Widgets.DrawLineHorizontal(region.x + 2f, region.y + region.height - 1f, region.width - 4f);
-            GUI.color = cache;
+            // Unused
         }
 
         /// <inheritdoc/>
         protected override void DrawTabHighlight(Rect region)
         {
-            if (region.position != _lastPosition)
+            if (!string.Equals(SelectedTab, _lastTab, StringComparison.OrdinalIgnoreCase))
             {
-                _lastPosition = region.position;
-                _progress = 0f;
+                ResetProgresses();
             }
 
             Color cache = GUI.color;
 
             GUI.color = AccentColor;
             Vector2 center = region.center;
-            float finalDistance = Mathf.FloorToInt(center.x * 0.75f);
-            _progress = Mathf.SmoothStep(_progress, finalDistance, 0.2f);
-            Widgets.DrawLineHorizontal(center.x - _progress, region.y + region.height - 1f, _progress * 2f);
+            float accentDistance = Mathf.FloorToInt((region.x - center.x) * 0.75f);
+            _highlightProgress = Mathf.SmoothStep(_highlightProgress, accentDistance, 0.15f);
+            Widgets.DrawLineHorizontal(center.x - _highlightProgress, region.y + region.height - 1f, _highlightProgress * 2f);
 
             GUI.color = cache;
+
+            _foregroundProgress = Mathf.SmoothStep(_foregroundProgress, center.x - region.x, 0.15f);
+            var animationRegion = new Rect(center.x, center.y, 0f, 0f);
+
+            Widgets.DrawLightHighlight(animationRegion.ExpandedBy(_foregroundProgress));
         }
     }
 }
