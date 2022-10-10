@@ -18,6 +18,6 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.2" ExcludeAssets="runtime" />
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3507-beta" ExcludeAssets="runtime" />
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3510-beta" ExcludeAssets="runtime" />
     </ItemGroup>
 </Project>
