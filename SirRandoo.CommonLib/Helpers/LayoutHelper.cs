@@ -242,13 +242,13 @@ namespace SirRandoo.CommonLib.Helpers
         public static Rect IconRect(float x, float y, float width, float height, float margin)
         {
             float shortest = Mathf.Min(width, height);
-            float half = Mathf.FloorToInt(shortest / 2f);
-            float centerY = Mathf.FloorToInt(width / 2f);
-            float centerX = Mathf.FloorToInt(height / 2f);
+            float halfShortest = Mathf.FloorToInt(shortest / 2f);
+            float halfWidth = Mathf.FloorToInt(width / 2f);
+            float halfHeight = Mathf.FloorToInt(height / 2f);
 
             return new Rect(
-                Mathf.Clamp(centerX - half, x, x + width) + margin,
-                Mathf.Clamp(centerY - half, y, y + height) + margin,
+                Mathf.Clamp(x + halfWidth - halfShortest, x, x + width) + margin,
+                Mathf.Clamp(y + halfHeight - halfShortest, y, y + height) + margin,
                 shortest - margin * 2f,
                 shortest - margin * 2f
             );
