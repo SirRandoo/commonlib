@@ -23,6 +23,7 @@
 using System.Threading;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 namespace SirRandoo.CommonLib.Workers
 {
@@ -35,7 +36,7 @@ namespace SirRandoo.CommonLib.Workers
             _frames = frames;
         }
 
-        public GifWorker([NotNull] Texture gif)
+        public GifWorker([NotNull] Texture2D gif)
         {
             _frames = ExtrapolateFrames(gif);
         }
@@ -43,14 +44,14 @@ namespace SirRandoo.CommonLib.Workers
         [NotNull]
         private static Texture2D CopyImage([NotNull] Texture original)
         {
-            RenderTexture tmpTexture = RenderTexture.GetTemporary(original.width, original.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
+            RenderTexture tmpTexture = RenderTexture.GetTemporary(original.width, original.height);
 
             Graphics.Blit(original, tmpTexture);
 
             RenderTexture previous = RenderTexture.active;
             RenderTexture.active = tmpTexture;
 
-            var newTexture = new Texture2D(original.width, original.height);
+            var newTexture = new Texture2D(original.width, original.height, tmpTexture.graphicsFormat, TextureCreationFlags.None);
             newTexture.ReadPixels(new Rect(0f, 0f, tmpTexture.width, tmpTexture.height), 0, 0);
             newTexture.Apply();
 
@@ -61,7 +62,7 @@ namespace SirRandoo.CommonLib.Workers
         }
 
         [NotNull]
-        private static Texture2D[] ExtrapolateFrames([NotNull] Texture texture)
+        private static Texture2D[] ExtrapolateFrames([NotNull] Texture2D texture)
         {
             Texture2D copy = CopyImage(texture);
 
@@ -72,7 +73,7 @@ namespace SirRandoo.CommonLib.Workers
 
             for (var i = 0; i < totalFrames; i++)
             {
-                var frame = new Texture2D(imageSize, imageSize);
+                var frame = new Texture2D(imageSize, imageSize, texture.format, false, true);
                 int x = isVertical ? 0 : i * imageSize;
                 int y = isVertical ? i * imageSize : 0;
 
