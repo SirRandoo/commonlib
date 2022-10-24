@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using HarmonyLib;
 using RimWorld;
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
@@ -32,8 +31,6 @@ namespace SirRandoo.CommonLib.Windows
 {
     public class ProxySettingsWindow : Window
     {
-        private static readonly bool HugsLibActive = ModLister.GetActiveModWithIdentifier("UnlimitedHugs.HugsLib") != null;
-        private static readonly Type HugsLibSettingsWindow = AccessTools.TypeByName("HugsLib.Settings.Dialog_VanillaModSettings");
         private readonly Mod _mod;
         private bool _hasSettings;
         private string _lastException;
@@ -62,16 +59,7 @@ namespace SirRandoo.CommonLib.Windows
             GUI.BeginGroup(inRect);
 
             GUI.BeginGroup(headerRect);
-
-            if (HugsLibActive)
-            {
-                DrawHugsLibHeader(headerRect);
-            }
-            else
-            {
-                DrawHeader(headerRect);
-            }
-
+            DrawHeader(headerRect);
             GUI.EndGroup();
 
             GUI.BeginGroup(settingsRect);
@@ -79,20 +67,6 @@ namespace SirRandoo.CommonLib.Windows
             GUI.EndGroup();
 
             GUI.EndGroup();
-        }
-
-        private void DrawHugsLibHeader(Rect region)
-        {
-            var labelRect = new Rect(0f, 0f, region.width, 32f);
-
-            Text.Font = GameFont.Medium;
-            Widgets.Label(labelRect, "HugsLib_setting_mod_name_title".Translate(_mod.SettingsCategory()));
-            Text.Font = GameFont.Small;
-
-            Color cache = GUI.color;
-            GUI.color = new Color(0.3f, 0.3f, 0.3f);
-            Widgets.DrawLineHorizontal(0f, 32f, region.width);
-            GUI.color = cache;
         }
 
         private void DrawHeader(Rect region)
@@ -184,13 +158,12 @@ namespace SirRandoo.CommonLib.Windows
 
         internal static void Open(Mod mod)
         {
-            Find.WindowStack.TryRemove(HugsLibActive ? HugsLibSettingsWindow : typeof(Dialog_ModSettings));
-            Find.WindowStack.Add(!(mod is ModPlus plus) ? new ProxySettingsWindow(mod) : plus.SettingsWindow);
+            Open(!(mod is ModPlus plus) ? new ProxySettingsWindow(mod) : plus.SettingsWindow);
         }
 
         internal static void Open(ProxySettingsWindow window)
         {
-            Find.WindowStack.TryRemove(HugsLibActive ? HugsLibSettingsWindow : typeof(Dialog_ModSettings));
+            Find.WindowStack.TryRemove(typeof(Dialog_ModSettings));
             Find.WindowStack.Add(window);
         }
     }
