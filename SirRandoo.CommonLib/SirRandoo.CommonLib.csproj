@@ -12,7 +12,7 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.10.0</PackageVersion>
+        <PackageVersion>1.11.0</PackageVersion>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>0SirRandoo.CommonLib</AssemblyName>
     </PropertyGroup>
