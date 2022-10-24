@@ -31,7 +31,7 @@ namespace SirRandoo.CommonLib.Workers
     {
         private readonly Texture2D[] _frames;
 
-        public GifWorker(params Texture2D[] frames)
+        public GifWorker(Texture2D[] frames)
         {
             _frames = frames;
         }
